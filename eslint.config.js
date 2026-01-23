@@ -8,7 +8,7 @@ import reactDom from 'eslint-plugin-react-dom';
 import { defineConfig, globalIgnores } from 'eslint/config';
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(['dist', 'src/components/ui', 'node_modules']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -30,15 +30,6 @@ export default defineConfig([
         project: ['./tsconfig.node.json', './tsconfig.app.json'],
         tsconfigRootDir: import.meta.dirname,
       },
-    },
-  },
-
-  // Override für Shadcn/UI-Komponenten
-  {
-    files: ['src/components/ui/**/*.tsx'],
-    rules: {
-      // Disable nur für diese Komponenten
-      'react-refresh/only-export-components': 'off',
     },
   },
 ]);
