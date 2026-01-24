@@ -1,5 +1,4 @@
-import { ChevronsUpDown, LogOut } from 'lucide-react';
-
+import { ChevronsUpDown, LogOut, LogIn } from 'lucide-react';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import {
   DropdownMenu,
@@ -13,17 +12,39 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
+import { useMsal, useIsAuthenticated } from '@azure/msal-react';
+import { loginRequest } from '../auth/auth-config';
+import { useCurrentUser } from '@/hooks/useCurrentUser';
 
-export function NavUserLogin({
-  user,
-}: {
-  user: {
-    firstname: string;
-    lastname: string;
-    email: string;
-  };
-}) {
+export function NavUserLogin() {
   const { isMobile } = useSidebar();
+  const isAuthenticated = useIsAuthenticated();
+  const { instance } = useMsal();
+  const user = useCurrentUser();
+
+  const handleLoginRedirect = () => {
+    void instance.loginRedirect(loginRequest);
+  };
+
+  const handleLogoutRedirect = () => {
+    void instance.logoutRedirect();
+  };
+
+  if (!isAuthenticated || !user) {
+    return (
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <SidebarMenuButton
+            onClick={handleLoginRedirect}
+            className="bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground h-12 justify-center px-4 py-3 font-medium group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2!"
+          >
+            <LogIn />
+            <span>Einloggen</span>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    );
+  }
 
   return (
     <SidebarMenu>
@@ -36,14 +57,11 @@ export function NavUserLogin({
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarFallback className="rounded-lg">
-                  {user.firstname[0]}
-                  {user.lastname[0]}
+                  {user.name[0]}
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">
-                  {user.firstname} {user.lastname}
-                </span>
+                <span className="truncate font-medium">{user.name}</span>
                 <span className="truncate text-xs">{user.email}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
@@ -55,7 +73,7 @@ export function NavUserLogin({
             align="end"
             sideOffset={4}
           >
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogoutRedirect}>
               <LogOut />
               Log out
             </DropdownMenuItem>
