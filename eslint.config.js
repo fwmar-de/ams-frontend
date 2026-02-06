@@ -8,7 +8,7 @@ import reactDom from 'eslint-plugin-react-dom';
 import { defineConfig, globalIgnores } from 'eslint/config';
 
 export default defineConfig([
-  globalIgnores(['dist', 'src/components/ui', 'node_modules']),
+  globalIgnores(['dist', 'src/components/ui', 'node_modules', 'src/api']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
