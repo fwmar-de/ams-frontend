@@ -1,7 +1,6 @@
 import { AlertCircle } from 'lucide-react';
 import { useLocationControllerGetAllLocations } from '@api/locations/locations';
-import { LocationCard } from '@features/locations/components/location-card';
-import { LocationCardSkeleton } from '@features/locations/components/location-card-skeleton';
+import { columns, DataTable } from '@/features/locations/components';
 
 export default function LocationsPage() {
   const { data, isLoading, isError, error } =
@@ -19,11 +18,7 @@ export default function LocationsPage() {
       </div>
 
       {isLoading && (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {Array.from({ length: 6 }).map((_, i) => (
-            <LocationCardSkeleton key={i} />
-          ))}
-        </div>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">Lädt...</div>
       )}
 
       {isError && (
@@ -53,10 +48,8 @@ export default function LocationsPage() {
       )}
 
       {!isLoading && !isError && data?.data && data.data.length > 0 && (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {data.data.map((location) => (
-            <LocationCard key={location.id} location={location} />
-          ))}
+        <div className="w-full">
+          <DataTable columns={columns} data={data.data} />
         </div>
       )}
     </div>

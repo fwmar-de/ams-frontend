@@ -1,2 +1,2 @@
-export { LocationCard } from './location-card';
-export { LocationCardSkeleton } from './location-card-skeleton';
+export * from './columns';
+export * from './data-table';
