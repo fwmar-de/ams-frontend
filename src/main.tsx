@@ -9,6 +9,7 @@ import App from './App.tsx';
 import HomePage from './pages/home.tsx';
 import LocationsPage from './pages/locations.tsx';
 import CoursesPage from './pages/courses.tsx';
+import RanksPage from './pages/ranks.tsx';
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ createRoot(document.getElementById('root')!).render(
               <Route index element={<HomePage />} />
               <Route path="standorte" element={<LocationsPage />} />
               <Route path="lehrgänge" element={<CoursesPage />} />
+              <Route path="dienstgrade" element={<RanksPage />} />
             </Route>
           </Routes>
         </BrowserRouter>
