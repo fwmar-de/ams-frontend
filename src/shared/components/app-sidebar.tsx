@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { House, MapPin, Briefcase } from 'lucide-react';
+import { House, MapPin, Briefcase, Tag } from 'lucide-react';
 import { NavMenu } from '@shared/components/nav-menu';
 import { NavUserLogin } from '@shared/components/nav-user-login';
 import { NavHeader } from '@shared/components/nav-header';
@@ -29,6 +29,11 @@ const data = {
       name: 'Lehrgänge',
       url: '/lehrgänge',
       icon: Briefcase,
+    },
+    {
+      name: 'Dienstgrade',
+      url: '/dienstgrade',
+      icon: Tag,
     },
   ],
 };
