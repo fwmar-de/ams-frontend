@@ -10,5 +10,5 @@ export interface GetRankDto {
   id: string;
   name: string;
   abbreviation: string;
-  level: number;
+  isDefault: boolean;
 }

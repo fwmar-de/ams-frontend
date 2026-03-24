@@ -10,6 +10,7 @@ import HomePage from './pages/home.tsx';
 import LocationsPage from './pages/locations.tsx';
 import CoursesPage from './pages/courses.tsx';
 import RanksPage from './pages/ranks.tsx';
+import PromotionRequirementPage from './pages/promotion-requirements.tsx';
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,10 @@ createRoot(document.getElementById('root')!).render(
               <Route path="standorte" element={<LocationsPage />} />
               <Route path="lehrgänge" element={<CoursesPage />} />
               <Route path="dienstgrade" element={<RanksPage />} />
+              <Route
+                path="beförderungsregeln"
+                element={<PromotionRequirementPage />}
+              />
             </Route>
           </Routes>
         </BrowserRouter>

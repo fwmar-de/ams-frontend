@@ -1,4 +1,5 @@
 import type { GetRankDto } from '@/shared/api/model';
+import { Badge } from '@/shared/components/ui/badge';
 import { Button } from '@/shared/components/ui/button';
 import {
   AlertDialog,
@@ -12,7 +13,7 @@ import {
   AlertDialogTrigger,
 } from '@shared/components/ui/alert-dialog';
 import type { ColumnDef } from '@tanstack/react-table';
-import { Pencil, Trash } from 'lucide-react';
+import { ArrowUpDown, Pencil, Trash } from 'lucide-react';
 
 export const createColumns = (
   onEdit: (rank: GetRankDto) => void,
@@ -20,11 +21,29 @@ export const createColumns = (
 ): ColumnDef<GetRankDto>[] => [
   {
     accessorKey: 'name',
-    header: 'Bezeichnung',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Bezeichnung
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
   },
   {
     accessorKey: 'abbreviation',
     header: 'Kürzel',
+  },
+  {
+    accessorKey: 'isDefault',
+    header: '',
+    cell: ({ row }) =>
+      row.original.isDefault ? (
+        <Badge variant="secondary">Default</Badge>
+      ) : null,
   },
   {
     id: 'actions',
