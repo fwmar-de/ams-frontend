@@ -4,12 +4,13 @@ import { type LucideIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import {
   SidebarGroup,
+  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@shared/components/ui/sidebar';
 
-export function NavMenu({
+export function NavCoreData({
   items,
 }: {
   items: {
@@ -20,6 +21,7 @@ export function NavMenu({
 }) {
   return (
     <SidebarGroup>
+      <SidebarGroupLabel>Stammdaten</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
           <SidebarMenuItem key={item.name}>

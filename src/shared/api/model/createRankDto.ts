@@ -9,4 +9,5 @@
 export interface CreateRankDto {
   name: string;
   abbreviation: string;
+  isDefault: boolean;
 }

@@ -9,5 +9,5 @@
 export interface UpdateRankDto {
   name?: string;
   abbreviation?: string;
-  level?: number;
+  isDefault?: boolean;
 }

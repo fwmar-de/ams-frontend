@@ -1,8 +1,17 @@
 'use client';
 
 import * as React from 'react';
-import { House, MapPin, Briefcase, Tag } from 'lucide-react';
-import { NavMenu } from '@shared/components/nav-menu';
+import {
+  House,
+  MapPin,
+  Briefcase,
+  Tag,
+  CircleFadingArrowUp,
+  LifeBuoy,
+  Megaphone,
+  Sun,
+} from 'lucide-react';
+import { NavCoreData } from '@/shared/components/nav-coreData';
 import { NavUserLogin } from '@shared/components/nav-user-login';
 import { NavHeader } from '@shared/components/nav-header';
 import {
@@ -12,14 +21,19 @@ import {
   SidebarHeader,
   SidebarRail,
 } from '@shared/components/ui/sidebar';
+import { NavInformation } from '@/shared/components/nav-information';
+import { NavMain } from './nav-main';
+import { NavSettings } from './nav-settings';
 
 const data = {
-  items: [
+  main: [
     {
       name: 'Home',
       url: '/',
       icon: House,
     },
+  ],
+  coreData: [
     {
       name: 'Standorte',
       url: '/standorte',
@@ -35,6 +49,30 @@ const data = {
       url: '/dienstgrade',
       icon: Tag,
     },
+    {
+      name: 'Beförderungsregeln',
+      url: '/beförderungsregeln',
+      icon: CircleFadingArrowUp,
+    },
+  ],
+  information: [
+    {
+      name: 'Hilfe und Dokumentation',
+      url: '#',
+      icon: LifeBuoy,
+    },
+    {
+      name: 'Release Notes',
+      url: '#',
+      icon: Megaphone,
+    },
+  ],
+  settings: [
+    {
+      name: 'Light/Dark',
+      url: '#',
+      icon: Sun,
+    },
   ],
 };
 
@@ -45,7 +83,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavHeader />
       </SidebarHeader>
       <SidebarContent>
-        <NavMenu items={data.items} />
+        <NavMain items={data.main} />
+        <NavCoreData items={data.coreData} />
+        <div className="mt-auto">
+          <NavInformation items={data.information} />
+          <NavSettings items={data.settings} />
+        </div>
       </SidebarContent>
       <SidebarFooter>
         <NavUserLogin />

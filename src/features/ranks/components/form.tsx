@@ -28,6 +28,14 @@ import {
   useRankControllerCreateRank,
   useRankControllerUpdateRank,
 } from '@/shared/api/ranks/ranks';
+import { Checkbox } from '@shared/components/ui/checkbox';
+import {
+  Field,
+  FieldGroup,
+  FieldLabel,
+  FieldDescription,
+  FieldContent,
+} from '@shared/components/ui/field';
 
 const rankFormSchema = z.object({
   name: z
@@ -40,6 +48,7 @@ const rankFormSchema = z.object({
     .min(1, 'Kürzel ist erforderlich')
     .min(2, 'Kürzel muss mindestens 2 Zeichen lang sein')
     .max(10, 'Kürzel darf maximal 10 Zeichen lang sein'),
+  isDefault: z.boolean().optional(),
 });
 
 type RankFormValues = z.infer<typeof rankFormSchema>;
@@ -66,6 +75,7 @@ export function RankForm({ open, onOpenChange, rank }: RankFormProps) {
     defaultValues: {
       name: '',
       abbreviation: '',
+      isDefault: false,
     },
   });
 
@@ -77,12 +87,14 @@ export function RankForm({ open, onOpenChange, rank }: RankFormProps) {
       form.reset({
         name: rank.name,
         abbreviation: rank.abbreviation,
+        isDefault: rank.isDefault,
       });
     } else {
       // Create mode
       form.reset({
         name: '',
         abbreviation: '',
+        isDefault: false,
       });
     }
   }, [open, rank, form]);
@@ -167,6 +179,37 @@ export function RankForm({ open, onOpenChange, rank }: RankFormProps) {
                     <FormLabel>Kürzel</FormLabel>
                     <FormControl>
                       <Input placeholder="z.B. BOI" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="isDefault"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <FieldGroup className="m-flex">
+                        <Field orientation="horizontal">
+                          <Checkbox
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
+                          <FieldContent>
+                            <FieldLabel htmlFor="terms-checkbox-desc">
+                              Default Dienstgrad
+                            </FieldLabel>
+                            <FieldDescription>
+                              Es kann nur einen Default Dienstgrad geben. Wenn
+                              Sie diesen Dienstgrad als Default markieren,
+                              werden neue Nutzer automatisch diesem Dienstgrad
+                              zugeordnet.
+                            </FieldDescription>
+                          </FieldContent>
+                        </Field>
+                      </FieldGroup>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

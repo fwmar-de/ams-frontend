@@ -8,5 +8,5 @@
 
 export interface RankOrderItem {
   id: string;
-  level: number;
+  isDefault: boolean;
 }
